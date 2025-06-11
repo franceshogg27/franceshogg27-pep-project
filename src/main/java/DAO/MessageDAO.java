@@ -122,6 +122,16 @@ public class MessageDAO {
     /*The update of a message should be successful if and only if the message id already exists 
     and the new message_text is not blank and is not over 255 characters. */
     public Message updateMessageByID(String message_text, int id) {
+        MessageDAO messageDAO = new MessageDAO();
+        if (messageDAO.getMessageByID(id) == null) {
+            return null;
+        }
+        if (message_text.length() > 255) {
+            return null;
+        }
+        if (message_text == "" || message_text == null) {
+            return null;
+        }
         try {
             Connection connection = ConnectionUtil.getConnection();
             String sql = "UPDATE message SET message_text = ? WHERE message_id = ?";
@@ -130,39 +140,13 @@ public class MessageDAO {
             preparedStatement.setString(1, message_text);
             preparedStatement.setInt(2, id);
 
-            int rowsAffected = preparedStatement.executeUpdate();
-            if (rowsAffected > 0) {
-                return getMessageByID(id);
-            }
+            int rows_affected = preparedStatement.executeUpdate();
+            if (rows_affected > 0) {
+                return messageDAO.getMessageByID(id);
+            }  
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return null;
-    }
-
-    public List<Message> getAllMessagesByUser(int posted_by) {
-        List<Message> messages = new ArrayList<>();
-        try {
-            Connection connection = ConnectionUtil.getConnection();
-            String sql = "SELECT * FROM message WHERE posted_by = ?";
-
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-
-            preparedStatement.setInt(1, posted_by);
-
-            ResultSet rs = preparedStatement.executeQuery();
-
-            while (rs.next()) {
-                Message message = new Message(rs.getInt("message_id"), 
-                                    rs.getInt("posted_by"), 
-                                    rs.getString("message_text"),
-                                    rs.getLong("time_posted_epoch"));
-                messages.add(message);
-            }
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return messages;
     }
 }

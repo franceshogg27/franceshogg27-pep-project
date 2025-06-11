@@ -48,7 +48,7 @@ public class SocialMediaController {
         app.get("/messages/{message_id}", this::getMessageById);
         app.delete("/messages/{message_id}", this::deleteMessage);
         app.patch("/messages/{message_id}", this::updateMessage);
-        app.get("accounts/{account_id}", this::getMessagesByUser);
+        app.get("accounts/{account_id}/messages", this::getMessagesByUser);
         return app;
     }
 
@@ -131,6 +131,6 @@ public class SocialMediaController {
     }
 
     private void getMessagesByUser(Context ctx) throws JsonProcessingException {
-        ctx.json(messageService.getAllMessagesByUser(Integer.parseInt(ctx.pathParam("posted_by"))));
+        ctx.json(accountService.getAllMessagesByUser(Integer.parseInt(ctx.pathParam("account_id"))));
     }
 }

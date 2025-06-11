@@ -40,9 +40,4 @@ public class MessageService {
     public Message updateMessageById(String message_text, int id) {
         return messageDAO.updateMessageByID(message_text, id);
     }
-
-    /* retrieve all messages by user */
-    public List<Message> getAllMessagesByUser(int id) {
-        return messageDAO.getAllMessagesByUser(id);
-    }
 }

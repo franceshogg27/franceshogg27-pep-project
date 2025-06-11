@@ -1,5 +1,9 @@
 package Service;
 import Model.Account;
+import Model.Message;
+
+import java.util.List;
+
 import DAO.AccountDAO;
 
 public class AccountService {
@@ -22,5 +26,10 @@ public class AccountService {
     /* process login */
     public Account login(String username, String password) {
         return accountDAO.processLogin(username, password);
+    }
+
+    /* retrieve all messages by user */
+    public List<Message> getAllMessagesByUser(int id) {
+        return accountDAO.getAllMessagesByUser(id);
     }
 }
