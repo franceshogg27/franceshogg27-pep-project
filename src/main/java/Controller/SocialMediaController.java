@@ -95,7 +95,14 @@ public class SocialMediaController {
     }
 
     private void getMessageById(Context ctx) throws JsonProcessingException {
-        ctx.json(messageService.getMessageById(Integer.parseInt(ctx.pathParam("message_id"))));
+        ObjectMapper mapper = new ObjectMapper();
+        Message gotMessage = messageService.getMessageById(Integer.parseInt(ctx.pathParam("message_id")));
+        if (gotMessage == null) {
+            ctx.json("");
+        }
+        else {
+            ctx.json(mapper.writeValueAsString(gotMessage));
+        }
     }
 
     private void deleteMessage(Context ctx) throws JsonProcessingException {

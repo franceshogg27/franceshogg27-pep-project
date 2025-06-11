@@ -65,7 +65,7 @@ public class AccountDAO {
         if (getAccountByUsername(account.getUsername()) != null) {
             return null;
         }
-        if (account.getUsername() == null) {
+        if (account.getUsername() == "" || account.getUsername() == null) {
             return null;
         }
         if (account.getPassword().length() < 4) {
