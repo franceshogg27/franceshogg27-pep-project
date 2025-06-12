@@ -37,7 +37,7 @@ public class MessageService {
     }
 
     /* update a message by id */
-    public Message updateMessageById(String message_text, int id) {
-        return messageDAO.updateMessageByID(message_text, id);
+    public Message updateMessage(String message_text, int id) {
+        return messageDAO.updateMessage(message_text, id);
     }
 }

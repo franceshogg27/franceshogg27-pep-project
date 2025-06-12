@@ -120,8 +120,9 @@ public class SocialMediaController {
     private void updateMessage(Context ctx) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         int message_id = Integer.parseInt(ctx.pathParam("message_id"));
-        String message_text = ctx.pathParam("message_text");
-        Message updatedMessage = messageService.updateMessageById(message_text, message_id);
+        Message message = mapper.readValue(ctx.body(), Message.class);
+        String message_text = message.message_text;
+        Message updatedMessage = messageService.updateMessage(message_text, message_id);
         if (updatedMessage == null) {
             ctx.status(400);
         }

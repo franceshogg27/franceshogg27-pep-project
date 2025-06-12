@@ -121,7 +121,7 @@ public class MessageDAO {
     
     /*The update of a message should be successful if and only if the message id already exists 
     and the new message_text is not blank and is not over 255 characters. */
-    public Message updateMessageByID(String message_text, int id) {
+    public Message updateMessage(String message_text, int id) {
         MessageDAO messageDAO = new MessageDAO();
         if (messageDAO.getMessageByID(id) == null) {
             return null;
