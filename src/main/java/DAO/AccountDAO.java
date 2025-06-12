@@ -97,9 +97,6 @@ public class AccountDAO {
 
     public Account processLogin(Account account) {
         AccountDAO accountDAO = new AccountDAO();
-        if (account == null) {
-            return null;
-        }
         Account matchingAccount = accountDAO.getAccountByUsername(account.username);
         if (matchingAccount == null) {
             return null;
