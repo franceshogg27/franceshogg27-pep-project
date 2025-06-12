@@ -18,6 +18,11 @@ public class AccountService {
         this.accountDAO = accountDAO;
     }
 
+    /* get account by userame */
+    public Account getAccountByUsername(String username) {
+        return accountDAO.getAccountByUsername(username);
+    }
+
     /* create new account */
     public Account addUser(Account account) {
         return accountDAO.insertAccount(account);
