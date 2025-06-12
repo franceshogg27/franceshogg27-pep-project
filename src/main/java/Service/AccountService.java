@@ -24,8 +24,8 @@ public class AccountService {
     }
 
     /* process login */
-    public Account login(String username, String password) {
-        return accountDAO.processLogin(username, password);
+    public Account login(Account account) {
+        return accountDAO.processLogin(account);
     }
 
     /* retrieve all messages by user */

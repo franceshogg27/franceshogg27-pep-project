@@ -95,9 +95,16 @@ public class AccountDAO {
         return null;
     }
 
-    public Account processLogin(String username, String password) {
-        Account account = getAccountByUsername(username);
-        if (account.getPassword().equals(password)) {
+    public Account processLogin(Account account) {
+        AccountDAO accountDAO = new AccountDAO();
+        if (account == null) {
+            return null;
+        }
+        Account matchingAccount = accountDAO.getAccountByUsername(account.username);
+        if (matchingAccount == null) {
+            return null;
+        }
+        if (matchingAccount.getPassword().equals(account.getPassword())) {
             return account;
         }
         return null;
